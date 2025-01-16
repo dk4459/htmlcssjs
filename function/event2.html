@@ -51,6 +51,8 @@
         return 2;
       } else if (month == 5) {
         return 4;
+      }else if (month == 6) {
+        return 0;
       }
     }
 
@@ -102,7 +104,12 @@
         } else if ((i + space) % 7 == 1) {
           html += `<td style="background-color: red; color:yellow">${i}</td>`
         } else {
-          html += `<td>${i}</td>`
+          if(month==1&&(i==27||i==28||i==29||i==30)){
+            html += `<td style="background-color: red; color:yellow">${i}</td>`
+          }
+          else{
+            html += `<td>${i}</td>`
+          }
         }
         if ((i + space) % 7 == 0) {
           html += '</tr><tr>'
