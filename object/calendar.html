@@ -80,6 +80,11 @@
     })
 
     function makeCalander(year = 2025, month=1){
+      let holiday = holydays.filter(function(item,idx,ary){
+         if(month==item.month){
+          return true;
+         }
+      })
       let date = new Date(year,month-1,1);
       let space = date.getDay(); //1일의 위치(공백)
       date = new Date(year, month, 0);
@@ -87,6 +92,7 @@
       let days = ['일', '월', '화', '수', '목', '금', '토']
       let show = document.querySelector('#show');
       let html = '';
+      let hodli = 0;
       html += `<h3>${year}년 ${month}월</h3>`
       html += `<table>
               <thead>
@@ -101,29 +107,28 @@
         html += '<td></td>'
       }
       for (i = 1; i <= lastDate; i++) {
-        if ((i + space) % 7 == 0) {
-          html += `<td style="background-color: blue; color:yellow">${i}</td>`
+        let isHoliday = holiday[0]?.days.includes(i);
+        console.log(`holiday index의 ${holiday.length}`)
+        let boolean  = holiday[0]?.days.indexOf(i)!= -1 &&holiday[0]?.days.indexOf(i)!= undefined;
+        console.log(boolean)
+        if(boolean){
+             html += `<td style="background-color: pink; color:yellow">${i}</td>`
+          }
+          else if ((i + space) % 7 == 0) {
+            html += `<td style="background-color: blue; color:yellow">${i}</td>`
         } else if ((i + space) % 7 == 1) {
-          html += `<td style="background-color: red; color:yellow">${i}</td>`
-        } else {
-          if(month==1&&(i==27||i==28||i==29||i==30)){
             html += `<td style="background-color: red; color:yellow">${i}</td>`
-          }
-          else{
+        } else {
             html += `<td>${i}</td>`
-          }
         }
         if ((i + space) % 7 == 0) {
           html += '</tr><tr>'
         }
+       
       }
       html += '</tr></tbody>'
       html += '</table>'
       show.innerHTML = html;
-      let red = document.querySelector('tr>th:nth-of-type(1)');
-      let blue = document.querySelector('tr>th:nth-of-type(7)');
-      red.style.color = 'red';
-      blue.style.color = 'blue';
     }
     makeCalander();
   </script>
