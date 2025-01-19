@@ -63,12 +63,15 @@
   <script>
     //월 정보를 알려주면 공백 반환
     let holydays =[{
+      year: 2025,
       month:1,
       days:[1, 2, 3]
     },{
+      year: 2025,
       month:2,
       days: [5 , 8, 12]
     },{
+      year: 2025,
       month:3,
       days:[1, 10, 15]
     }]
@@ -100,8 +103,8 @@
 
     function makeCalander(year = 2025, month=1){
       let holiday = holydays.filter(function(item,idx,ary){
-         if(month==item.month){
-          return true;
+         if(month==item.month && year == item.year){
+           return true;
          }
       })
       let date = new Date(year,month-1,1);
