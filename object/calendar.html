@@ -9,13 +9,21 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </script>
   <style>
-    button {
+    body{
+      padding: 10px;
+      width: 600px;
+      text-align: center;
+    }
+    b{
       margin-left: 10px;
     }
-
-    table {
+    button {
       margin-left: 10px;
-      margin-top: 10px;
+      
+    }
+
+    table,h3 {
+      margin:10px auto;
       width: 280px;
     }
 
@@ -27,17 +35,28 @@
       border: 1px solid #ccc;
       text-align: center;
     }
-
-    h3 {
-      width: 280px;
-      text-align: center;
+    #line{
+      margin-left: 10px;
+      margin-top: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+    #inlineBlock{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-link {
+       margin: 0 80px;
+       text-decoration: none;
+      font-size: 1.5em;
     }
   </style>
 </head>
 
 <body>
-  연도:<input type="number" name="year" value="2025">
-  월:<input type="number" name="month" value="1">
+  <b>연도:</b><input type="number" name="year" value="2025">
+  <b>월: </b><input type="number" name="month" value="1">
   <button class="btn btn-danger">월클릭</button>
   <div id="show">
   </div>
@@ -93,9 +112,13 @@
       let show = document.querySelector('#show');
       let html = '';
       let hodli = 0;
-      html += `<h3>${year}년 ${month}월</h3>`
+      html += `<div id=line>`
       html += `<table>
-              <thead>
+              <div id="inlineBlock">
+              <a href="#" class="nav-link" id="before">&lt;</a>
+              <h3>${year}년 ${month}월</h3>
+              <a href="#" class="nav-link" id="after">&gt;</a>
+              </div">  
                <tr>`
       for (day of days) {
         html += `<th>${day}</th>`
@@ -108,9 +131,7 @@
       }
       for (i = 1; i <= lastDate; i++) {
         let isHoliday = holiday[0]?.days.includes(i);
-        console.log(`holiday index의 ${holiday.length}`)
         let boolean  = holiday[0]?.days.indexOf(i)!= -1 &&holiday[0]?.days.indexOf(i)!= undefined;
-        console.log(boolean)
         if(boolean){
              html += `<td style="background-color: pink; color:yellow">${i}</td>`
           }
@@ -128,9 +149,39 @@
       }
       html += '</tr></tbody>'
       html += '</table>'
+      html += `</div>`
       show.innerHTML = html;
+      let after = document.querySelector('#after')
+      let before = document.querySelector('#before')
+   after.addEventListener('click', function(e) {
+  let month = document.querySelector('input[name=month]').value;
+  month = parseInt(month); 
+  let year = document.querySelector('input[name=year]').value;
+  year = parseInt(year);
+  console.log('1')
+  month++; 
+  if (month > 12) month = 1, year += 1;
+  
+  document.querySelector('input[name=month]').value = month; 
+  document.querySelector('input[name=year]').value = year;
+  makeCalander(year, month); 
+});
+before.addEventListener('click',function(){
+  let month = document.querySelector('input[name=month]').value;
+  month = parseInt(month); 
+  let year = document.querySelector('input[name=year]').value;
+  year = parseInt(year);
+  month--;
+  if (month < 1) month =12, year -= 1;
+
+  document.querySelector('input[name=month]').value = month; 
+  document.querySelector('input[name=year]').value = year;
+  makeCalander(year, month); 
+})
     }
     makeCalander();
+   
+    
   </script>
 </body>
 
