@@ -22,7 +22,7 @@
       
     }
 
-    table,h3 {
+    table {
       margin:10px auto;
       width: 280px;
     }
@@ -45,6 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 510px
     }
     .nav-link {
        margin: 0 80px;
@@ -156,32 +157,31 @@
       show.innerHTML = html;
       let after = document.querySelector('#after')
       let before = document.querySelector('#before')
-   after.addEventListener('click', function(e) {
-  let month = document.querySelector('input[name=month]').value;
-  month = parseInt(month); 
-  let year = document.querySelector('input[name=year]').value;
-  year = parseInt(year);
-  console.log('1')
-  month++; 
-  if (month > 12) month = 1, year += 1;
+     after.addEventListener('click', function(e) {
+     let month = document.querySelector('input[name=month]').value;
+      month = parseInt(month); 
+      let year = document.querySelector('input[name=year]').value;
+       year = parseInt(year);
+       month++; 
+       if (month > 12) month = 1, year += 1;
   
-  document.querySelector('input[name=month]').value = month; 
-  document.querySelector('input[name=year]').value = year;
-  makeCalander(year, month); 
-});
-before.addEventListener('click',function(){
-  let month = document.querySelector('input[name=month]').value;
-  month = parseInt(month); 
-  let year = document.querySelector('input[name=year]').value;
-  year = parseInt(year);
-  month--;
-  if (month < 1) month =12, year -= 1;
+       document.querySelector('input[name=month]').value = month; 
+       document.querySelector('input[name=year]').value = year;
+       makeCalander(year, month); 
+  });
+    before.addEventListener('click',function(){
+    let month = document.querySelector('input[name=month]').value;
+    month = parseInt(month); 
+    let year = document.querySelector('input[name=year]').value;
+    year = parseInt(year);
+    month--;
+    if (month < 1) month =12, year -= 1;
 
-  document.querySelector('input[name=month]').value = month; 
-  document.querySelector('input[name=year]').value = year;
-  makeCalander(year, month); 
-})
-    }
+    document.querySelector('input[name=month]').value = month; 
+    document.querySelector('input[name=year]').value = year;
+    makeCalander(year, month); 
+  })
+  }
     makeCalander();
    
     
