@@ -337,7 +337,7 @@
         })
     document.querySelector('#random').addEventListener('click', function () {
 
-    let numberRandom = 1; 
+    let numberRandom = 40; 
     let count = 0;
     
     function updateImage() {
@@ -373,6 +373,7 @@
     }
     // 재귀 함수
     updateImage(); 
+    
     document.querySelector('#modal-body').addEventListener('click', function(e) {
         if( e.target.nodeName === 'IMG'){
         inputSend();
