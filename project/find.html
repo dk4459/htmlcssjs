@@ -12,6 +12,9 @@
     </script>
     <!-- Geocoder 모듈용 -->
     <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=t0xruntwq5&submodules=geocoder"></script>
+    <!-- 구글폰트 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=star" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -104,7 +107,7 @@
             border: 3px solid #ccc;
             cursor: pointer;
         }
-        img+h3{
+        #modal-body h3{
             margin-top: 20px;
             font-family: 'Times New Roman', Times, serif;
         }
@@ -117,16 +120,21 @@
           right: 20px;   
           z-index: 1000000; 
         }
+        #center{
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-
-    <input type="text" id="query" class="col-2" placeholder="검색어 입력">
+    <div id="center">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" id="query" class="col-2" placeholder="검색어 입력 " > 
     <button id="searchBtn" class="btn btn-primary">검색</button>
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
         메뉴추천
     </button>
+    </div>
     <div id="flex">
         <ul id="results" class="list-group">
             <li></li>
@@ -245,13 +253,9 @@
                 li.innerHTML = `<a href="#"><span class='title'>조회한 값이 없습니다.</span>`;
                 resultList.appendChild(li);
             }
-            //document.querySelector('#results').style.display = "block"
         }
 
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//위도 경도 추출 함수
         function geocodeAddress(storeName) {
             naver.maps.Service.geocode({
                 query: storeName
@@ -341,14 +345,14 @@
     let count = 0;
     
     function updateImage() {
-        let menuRandom = Math.ceil(Math.random() * 31);
+        let menuRandom = Math.ceil(Math.random() * menu.length-1);
         document.querySelector('#modal-body').innerHTML = `
             <img src="img/recommend/${menu[menuRandom]}.jpg">
             <h3>${menu[menuRandom]}</h3>`;
         count++;
         
       
-            let delay = 0; 
+        let delay = 0; 
             
           
         if(count!=numberRandom){
@@ -366,8 +370,9 @@
             setTimeout(updateImage, delay);
         }else{
             document.querySelector('#modal-body').innerHTML = `
-            <img src= "img/recommend/${menu[menuRandom]}.jpg" data-bs-dismiss="modal">
-            <h3>${menu[menuRandom]} 당첨</h3>`;
+            <img src= "img/recommend/${menu[menuRandom]}.jpg" data-bs-dismiss="modal"/></br>
+            <h3><span class="material-symbols-outlined">star </span>${menu[menuRandom]} 당첨<span class="material-symbols-outlined"> star</span></h3>
+            `;
         }
         
     }
@@ -383,7 +388,7 @@
 function inputSend(){
     let randomText = document.querySelector('#modal-body > h3');
     let input =  document.querySelector('#query')
-    input.value = randomText.textContent.split(' ')[0];
+    input.value = randomText.textContent.split(' ')[1];
 
     document.querySelector('#searchBtn').click();
 }
